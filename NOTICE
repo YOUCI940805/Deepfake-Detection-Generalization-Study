@@ -1,0 +1,99 @@
+NOTICE
+======
+
+本 repository 自身的 notebook、文件與圖表採用 MIT 授權（見 LICENSE）。
+
+但本研究依賴下列第三方專案與資料集，它們各有獨立且更嚴格的授權條款。
+LICENSE 所授予的權利僅及於本 repository 的原創內容，不能解除下列任何
+一項的限制。實際使用時，仍須同時遵守各來源的條款。
+
+
+1. Forensics Adapter（官方實作）
+-------------------------------
+來源：https://github.com/OUC-VAS/ForensicsAdapter
+授權：Creative Commons Attribution-NonCommercial 4.0 International
+      （CC BY-NC 4.0），僅供學術研究使用，禁止商業用途
+
+Notebook 07、08、09C 需要此專案才能執行。其原始碼未包含在本 repository
+中，須自行向原作者取得。
+
+**重要**：本 repository 的 notebook 雖採 MIT 授權，但由於執行時必須搭配
+上述以 CC BY-NC 4.0 授權的程式碼，實際使用本專案的完整流程時仍受其非商業
+條款約束。MIT 授權涵蓋的是本 repository 的原創部分，不是整套流程。
+
+對該專案所做的三處本機相容性修改記錄於
+docs/third_party_modifications.md，皆不改動模型架構或損失函數定義。
+
+論文引用：
+
+  Cui, X., Li, Y., Luo, A., Zhou, J., & Dong, J. (2025).
+  Forensics Adapter: Adapting CLIP for Generalizable Face Forgery Detection.
+  Proceedings of the Computer Vision and Pattern Recognition Conference
+  (CVPR), pp. 19207-19217.
+
+
+2. FaceForensics++
+------------------
+來源：https://github.com/ondyari/FaceForensics
+授權：需向原作者申請並簽署使用條款，限學術研究用途，禁止再散布影像內容
+
+本 repository 不包含任何 FaceForensics++ 的影片或影像。基於其再散布限制，
+notebook 中原有的人臉預覽與誤判樣本影像已於公開版本移除，程式碼保留。
+
+
+3. Celeb-DF v2
+--------------
+來源：https://github.com/yuezunli/celeb-deepfakeforensics
+授權：需向原作者申請，限學術研究用途，禁止再散布影像內容
+
+本 repository 不包含任何 Celeb-DF v2 的影片或影像，理由同上。
+
+
+4. HiDF（Human-Indistinguishable Deepfake Dataset）
+--------------------------------------------------
+授權：Creative Commons Attribution-NonCommercial 4.0 International
+      （CC BY-NC 4.0），禁止商業用途
+
+- 官方專案：https://github.com/DSAIL-SKKU/HiDF
+- 資料集：https://zenodo.org/records/16140829
+- 論文：https://doi.org/10.1145/3711896.3737399
+- 授權條款：https://creativecommons.org/licenses/by-nc/4.0/
+
+本 repository 不包含或再散布 HiDF 的任何影像、影片或 metadata。使用者須自行
+從官方來源取得，並遵守其授權條款。
+
+本次研究使用的 626 張 HiDF 影像，取自作者先前專題所建立之 8:1:1 切分的
+val 子集。切分方式見 notebooks/00A_HiDF資料集切分.ipynb。
+
+引用：
+
+  Chaewon Kang, Seoyoon Jeong, Jonghyun Lee, Daejin Choi,
+  Simon S. Woo, and Jinyoung Han.
+  "HiDF: A Human-Indistinguishable Deepfake Dataset."
+  Proceedings of the 31st ACM SIGKDD Conference on Knowledge Discovery
+  and Data Mining, 2025. https://doi.org/10.1145/3711896.3737399
+
+
+5. 獨立測試集（09A–09C）
+-----------------------
+Real 為手機實拍照片，Fake 為網路蒐集之合成人臉影像。基於肖像權與著作權
+考量，本 repository 不包含任何相關影像。
+
+
+6. YOLOv11n-Face
+----------------
+02、00B 與 09A 使用 YOLOv11n-Face 進行人臉偵測與裁切，並透過 Ultralytics
+套件載入執行。
+
+- 模型來源：https://github.com/akanametov/yolo-face
+- Ultralytics：https://github.com/ultralytics/ultralytics
+
+本 repository 不包含或再散布 yolov11n-face.pt 權重，使用者須自行從原始專案
+取得，並遵守該專案及相關套件的授權條款。上述專案均屬其各自作者或權利人，
+本專案與其無隸屬或官方合作關係。
+
+
+7. 其他預訓練模型與套件
+----------------------
+- OpenAI CLIP 權重：透過 open_clip 或官方 CLIP 取得，適用其各自條款
+- 其他套件見 requirements.txt，各自適用其原始授權

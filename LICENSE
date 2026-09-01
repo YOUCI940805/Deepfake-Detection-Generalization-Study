@@ -1,29 +1,27 @@
-Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)
+MIT License
 
-本 repository 的 notebook、文件與圖表採用
-Creative Commons Attribution-NonCommercial 4.0 International License 授權。
+Copyright (c) 2026 Deepfake-Detection-Generalization-Study contributors
 
-授權全文：https://creativecommons.org/licenses/by-nc/4.0/legalcode
-摘要：https://creativecommons.org/licenses/by-nc/4.0/
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
 
-你可以自由地：
-  - 分享：以任何媒介或格式重製及散布本素材
-  - 改作：重混、轉換本素材、及依本素材建立新素材
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-惟需遵守下列條件：
-  - 姓名標示：必須給予適當表彰、提供指向本授權條款的連結，
-    並指出是否有對原始素材作出更動。
-  - 非商業性：不得將本素材用於商業目的。
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
 
 ---
 
-第三方素材說明
-
-本研究使用了 Forensics Adapter 的官方實作
-（https://github.com/OUC-VAS/ForensicsAdapter），該專案採用
-CC BY-NC 4.0 授權，僅供學術研究使用。官方原始碼未包含在本
-repository 中。對其所做的本機相容性修改記錄於
-docs/third_party_modifications.md。
-
-本 repository 不包含 FaceForensics++、Celeb-DF v2 或任何其他
-資料集的影像內容。各資料集有其獨立的授權條款與申請程序。
+NOTE: The MIT license above applies only to the original notebooks and
+documentation in this repository. This work depends on third-party code and
+datasets with more restrictive terms. See NOTICE for details.

@@ -66,7 +66,7 @@ Deepfakes 檔名 `000_003` 代表兩個來源身分。程式將 Fake 的兩個 I
 
 | 資料集 | 建立方式 | 規模 |
 |---|---|---|
-| HiDF | 取自作者先前專題所建之 8:1:1 切分的 **val 子集**。本次模型未接觸其任何子集 | Real 313、Fake 313，共 626 張 |
+| HiDF<br>(Human-Indistinguishable<br>Deepfake Dataset) | 取自作者先前專題所建之 8:1:1 切分的 **val 子集**。本次模型未接觸其任何子集 | Real 313、Fake 313，共 626 張 |
 | Celeb-DF v2 | 官方 `List_of_testing_videos.txt`，保留全部 178 部 Real，以 seed 42 從 340 部 Fake 抽出 178 部，每部取 3 幀 | Real 534、Fake 534，共 1,068 張 |
 | 獨立測試集 | Real 為手機實拍、Fake 為網路蒐集，經 YOLO 裁切後分為互斥的校準集與測試集 | 校準 100 張、測試 200 張 |
 
@@ -255,7 +255,7 @@ Notebook 中的路徑為作者本機環境（Windows），重現時需自行調�
 
 - [FaceForensics++](https://github.com/ondyari/FaceForensics)：需向原作者申請
 - [Celeb-DF v2](https://github.com/yuezunli/celeb-deepfakeforensics)：需向原作者申請
-- HiDF：作者先前研討會研究所使用的資料集，切分方式見 `00A`
+- [HiDF](https://github.com/DSAIL-SKKU/HiDF)（Human-Indistinguishable Deepfake Dataset）：[Zenodo](https://zenodo.org/records/16140829)，CC BY-NC 4.0。本次使用其 val 子集，切分方式見 `00A`
 - [ForensicsAdapter 官方實作](https://github.com/OUC-VAS/ForensicsAdapter)：07、08、09C 需要
 
 執行順序為 00A／00B（建立外部測試集）→ 01 → 09C。每份 notebook 的安全開關（`RUN_TRAINING`、`RUN_TEST`、`SMOKE_TEST` 等）預設為保守值，需依序確認資料檢查通過後再啟用。
@@ -279,6 +279,34 @@ Notebook 中的路徑為作者本機環境（Windows），重現時需自行調�
 }
 ```
 
-官方 ForensicsAdapter repository 採用 CC BY-NC 4.0 授權，僅供學術研究使用。本 repo 的 notebook 與文件同樣僅供學術研究使用。
+本研究使用的 HiDF 資料集：
 
-FaceForensics++ 與 Celeb-DF v2 各有其授權條款，使用前請詳閱。
+```bibtex
+@inproceedings{Kang_2025_HiDF,
+  author    = {Kang, Chaewon and Jeong, Seoyoon and Lee, Jonghyun and
+               Choi, Daejin and Woo, Simon S. and Han, Jinyoung},
+  title     = {HiDF: A Human-Indistinguishable Deepfake Dataset},
+  booktitle = {Proceedings of the 31st ACM SIGKDD Conference on Knowledge
+               Discovery and Data Mining},
+  year      = {2025},
+  doi       = {10.1145/3711896.3737399}
+}
+```
+
+### 授權
+
+本 repository 自身的 notebook、文件與圖表採用 MIT 授權（見 [`LICENSE`](LICENSE)）。
+
+但本研究依賴的第三方專案與資料集各有更嚴格的條款，MIT 授權不能解除這些限制：
+
+| 來源 | 條款 |
+|---|---|
+| ForensicsAdapter 官方實作 | CC BY-NC 4.0，限學術研究，禁止商業使用 |
+| FaceForensics++ | 需申請，限學術研究，禁止再散布影像 |
+| Celeb-DF v2 | 需申請，限學術研究，禁止再散布影像 |
+| HiDF | CC BY-NC 4.0，禁止商業使用 |
+| YOLOv11n-Face 權重 | 適用 akanametov/yolo-face 之條款 |
+
+07、08、09C 需搭配 ForensicsAdapter 官方程式碼才能執行，因此**實際執行本專案的完整流程時仍受其非商業條款約束**。MIT 涵蓋的是本 repository 的原創部分，不是整套流程。
+
+完整說明見 [`NOTICE`](NOTICE)。
