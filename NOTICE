@@ -2,6 +2,8 @@ NOTICE
 ======
 
 本 repository 自身的 notebook、文件與圖表採用 MIT 授權（見 LICENSE）。
+LICENSE 所授予的權利僅及於本 repository 的原創內容，不涵蓋下列第三方
+程式碼與資料集。
 
 但本研究依賴下列第三方專案與資料集，它們各有獨立且更嚴格的授權條款。
 LICENSE 所授予的權利僅及於本 repository 的原創內容，不能解除下列任何
