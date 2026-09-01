@@ -1,0 +1,36 @@
+# 實驗環境：Python 3.10.19 / Windows / NVIDIA RTX 4070 12GB
+# PyTorch 請依 CUDA 版本自行安裝，本研究使用 cu121：
+#   pip install torch==2.5.1 torchvision --index-url https://download.pytorch.org/whl/cu121
+
+torch==2.5.1
+torchvision
+
+# CLIP 基準與 Feature Adapter（03、04、05）
+open_clip_torch==3.3.0
+
+# 人臉偵測（02、09A）
+ultralytics==8.3.222
+
+# Forensics Adapter 官方實作依賴（07、08、09C）
+timm
+pyyaml
+# 官方程式固定使用 albumentations 1.1.0；
+# 本研究停用資料增強，故使用較新版本並跳過該流程的初始化，
+# 詳見 docs/third_party_modifications.md
+albumentations==2.0.8
+
+# 影像與資料處理
+opencv-python==4.12.0.88
+numpy
+pandas
+pillow
+
+# 評估與繪圖
+scikit-learn
+matplotlib
+seaborn
+tqdm
+
+# Notebook 環境
+jupyter
+ipykernel
