@@ -25,7 +25,13 @@
 
 **三、預設門檻 0.5 在跨 domain 時失效，且與模型能力無關**
 
-在一組獨立蒐集的測試影像上，Forensics Adapter 的 AUC 為 0.824，但輸出機率全部壓縮在 0.40–0.54 的狹窄區間內。以預設門檻 0.5 分類時：
+在一組獨立蒐集的測試影像上，Forensics Adapter 的 AUC 為 0.824，但輸出機率全部壓縮在 0.40–0.54 的狹窄區間內。
+
+![門檻搜尋與機率分布](figures/09C_threshold_search_and_score_distribution.png)
+
+右圖可見兩類的分數雖然可分，卻整體擠在 0.5 附近且中位數偏向 Real 側。排序能力與機率校準是兩件事——模型能正確排序樣本，不代表輸出的機率值可以直接用固定門檻切分。
+
+以預設門檻 0.5 分類時：
 
 | 門檻 | Accuracy | Recall | Precision | F1 | AUC |
 |---|---|---|---|---|---|
@@ -70,7 +76,7 @@ Deepfakes 檔名 `000_003` 代表兩個來源身分。程式將 Fake 的兩個 I
 | Celeb-DF v2 | 官方 `List_of_testing_videos.txt`，保留全部 178 部 Real，以 seed 42 從 340 部 Fake 抽出 178 部，每部取 3 幀 | Real 534、Fake 534，共 1,068 張 |
 | 獨立測試集 | Real 為手機實拍、Fake 為網路蒐集，經 YOLO 裁切後分為互斥的校準集與測試集 | 校準 100 張、測試 200 張 |
 
-建立過程見 `00A` 與 `00B`。兩者的已知限制列於下方「已知限制」第五、六點。
+建立過程見 [`00A`](notebooks/00A_HiDF資料集切分.ipynb) 與 [`00B`](notebooks/00B_CelebDFv2_平衡測試集建立.ipynb)。兩者的已知限制列於下方「已知限制」第五、六點。
 
 **評估規範**
 
@@ -150,6 +156,10 @@ Forensics Adapter 的 blending-boundary（x-ray）監督項，在 15 個 epoch �
 
 最可能的原因是 x-ray 目標圖中絕大多數像素為 0，MSE 只要整體預測接近 0 即可達到很低的值，有效梯度訊號極弱。這意味著本次訓練中模型的實際效能，未必來自論文所主張的邊界監督機制。
 
+![Forensics Adapter 訓練曲線](figures/07_adapter_training_curve.png)
+
+右圖的驗證 AUC 從第 1 個 epoch 起就貼在頂端，整段訓練幾乎是平的。
+
 依權重分解第 1 個 epoch 的總 loss：
 
 | 項目 | 原始值 | 權重 | 貢獻 | 佔比 |
@@ -167,7 +177,7 @@ Forensics Adapter 的 blending-boundary（x-ray）監督項，在 15 個 epoch �
 
 **四、獨立測試集的資料來源存在系統性差異**
 
-09A–09C 使用的 300 張測試影像中，Real 為手機實拍照片，Fake 為網路蒐集的合成人臉影像。兩類的來源不同，除真偽外還系統性地存在裝置、解析度、壓縮歷程與拍攝條件的差異。
+[`09A`](notebooks/09A_YOLO手機照片人臉裁切.ipynb)–[`09C`](notebooks/09C_手機資料門檻校準與正式測試.ipynb) 使用的 300 張測試影像中，Real 為手機實拍照片，Fake 為網路蒐集的合成人臉影像。兩類的來源不同，除真偽外還系統性地存在裝置、解析度、壓縮歷程與拍攝條件的差異。
 
 因此**該組資料的 AUC 0.824 不作為泛化能力的估計**，無法排除模型部分利用了來源差異而非偽造痕跡。
 
@@ -186,7 +196,7 @@ Celeb-DF v2 的裁切在擴張人臉框後未補成正方形即縮放為 224×22
 
 HiDF 則完全未經人臉裁切，但取得最佳的跨資料集成績（AUC 0.9735）。因此前處理不一致與效能高低之間並非單向關係，只能說這個變因存在且未被控制。
 
-詳見 `00A`、`00B` 與 `02`、`09A`。
+詳見 [`00A`](notebooks/00A_HiDF資料集切分.ipynb)、[`00B`](notebooks/00B_CelebDFv2_平衡測試集建立.ipynb) 與 [`02`](notebooks/02_FFPP_Deepfakes_YOLO人臉裁切.ipynb)、[`09A`](notebooks/09A_YOLO手機照片人臉裁切.ipynb)。
 
 **六、HiDF 的 Fake 存在嚴重的種族分布偏斜**
 
@@ -232,10 +242,15 @@ HiDF 測試集 626 張、Celeb-DF v2 平衡測試集 1,068 張。樣本量不足
 │   ├── 05_feature_adapter/
 │   ├── 07_forensics_adapter/
 │   ├── 08_cross_dataset/
+│   │   ├── HiDF/
+│   │   └── CelebDF_v2/
 │   └── 09C_threshold_calibration/
-├── figures/                            README 引用的圖表
+├── figures/                            結果圖表，索引見 figures/README.md
 ├── docs/
 │   └── third_party_modifications.md    對官方 ForensicsAdapter 的本機修改紀錄
+├── README.md
+├── LICENSE                             MIT
+├── NOTICE                              第三方程式碼與資料集的授權說明
 └── requirements.txt
 ```
 
@@ -255,10 +270,10 @@ Notebook 中的路徑為作者本機環境（Windows），重現時需自行調�
 
 - [FaceForensics++](https://github.com/ondyari/FaceForensics)：需向原作者申請
 - [Celeb-DF v2](https://github.com/yuezunli/celeb-deepfakeforensics)：需向原作者申請
-- [HiDF](https://github.com/DSAIL-SKKU/HiDF)（Human-Indistinguishable Deepfake Dataset）：[Zenodo](https://zenodo.org/records/16140829)，CC BY-NC 4.0。本次使用其 val 子集，切分方式見 `00A`
-- [ForensicsAdapter 官方實作](https://github.com/OUC-VAS/ForensicsAdapter)：07、08、09C 需要
+- [HiDF](https://github.com/DSAIL-SKKU/HiDF)（Human-Indistinguishable Deepfake Dataset）：[Zenodo](https://zenodo.org/records/16140829)，CC BY-NC 4.0。本次使用其 val 子集，切分方式見 [`00A`](notebooks/00A_HiDF資料集切分.ipynb)
+- [ForensicsAdapter 官方實作](https://github.com/OUC-VAS/ForensicsAdapter)：[`07`](notebooks/07_ForensicsAdapter_完整訓練與測試.ipynb)、[`08`](notebooks/08_ForensicsAdapter_跨資料集測試.ipynb)、[`09C`](notebooks/09C_手機資料門檻校準與正式測試.ipynb) 需要
 
-執行順序為 00A／00B（建立外部測試集）→ 01 → 09C。每份 notebook 的安全開關（`RUN_TRAINING`、`RUN_TEST`、`SMOKE_TEST` 等）預設為保守值，需依序確認資料檢查通過後再啟用。
+執行順序為 [`00A`](notebooks/00A_HiDF資料集切分.ipynb)／[`00B`](notebooks/00B_CelebDFv2_平衡測試集建立.ipynb)（建立外部測試集）→ [`01`](notebooks/01_FFPP_Deepfakes_資料準備.ipynb) → [`09C`](notebooks/09C_手機資料門檻校準與正式測試.ipynb)。每份 notebook 的安全開關（`RUN_TRAINING`、`RUN_TEST`、`SMOKE_TEST` 等）預設為保守值，需依序確認資料檢查通過後再啟用。
 
 環境見 `requirements.txt`。實驗環境為 Python 3.10、PyTorch 2.5.1+cu121、RTX 4070 12GB。
 
@@ -307,6 +322,6 @@ Notebook 中的路徑為作者本機環境（Windows），重現時需自行調�
 | HiDF | CC BY-NC 4.0，禁止商業使用 |
 | YOLOv11n-Face 權重 | 適用 akanametov/yolo-face 之條款 |
 
-07、08、09C 需搭配 ForensicsAdapter 官方程式碼才能執行，因此**實際執行本專案的完整流程時仍受其非商業條款約束**。MIT 涵蓋的是本 repository 的原創部分，不是整套流程。
+[`07`](notebooks/07_ForensicsAdapter_完整訓練與測試.ipynb)、[`08`](notebooks/08_ForensicsAdapter_跨資料集測試.ipynb)、[`09C`](notebooks/09C_手機資料門檻校準與正式測試.ipynb) 需搭配 ForensicsAdapter 官方程式碼才能執行，因此**實際執行本專案的完整流程時仍受其非商業條款約束**。MIT 涵蓋的是本 repository 的原創部分，不是整套流程。
 
 完整說明見 [`NOTICE`](NOTICE)。
