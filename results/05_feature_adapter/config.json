@@ -1,0 +1,31 @@
+{
+  "face_manifest": "D:\\資料\\專題\\PY\\deepfake\\新版專題研究\\FFPP_Deepfakes_16frames_faces\\metadata\\face_manifest.csv",
+  "baseline_best_model": "D:\\資料\\專題\\PY\\deepfake\\新版專題研究\\FFPP_CLIP_Baseline_Results\\clip_vit_b16_ffpp_deepfakes\\best_model.pth",
+  "model_name": "ViT-B-16-quickgelu",
+  "pretrained": "openai",
+  "image_size": 224,
+  "adapter_type": "residual_feature_bottleneck",
+  "adapter_hidden_dim": 128,
+  "adapter_scale": 0.2,
+  "adapter_dropout": 0.1,
+  "initialize_from_baseline": true,
+  "seed": 42,
+  "batch_size": 32,
+  "num_workers": 0,
+  "epochs": 15,
+  "adapter_learning_rate": 0.0003,
+  "classifier_learning_rate": 0.0001,
+  "weight_decay": 0.0001,
+  "early_stopping_patience": 5,
+  "grad_clip_norm": 1.0,
+  "smoke_test": false,
+  "label_mapping": {
+    "real": 0,
+    "fake": 1
+  },
+  "selection_metric": "validation video-level AUC",
+  "checkpoint_scope": "adapter_and_classifier_only",
+  "train_images": 23038,
+  "val_images": 4478,
+  "test_images": 4480
+}

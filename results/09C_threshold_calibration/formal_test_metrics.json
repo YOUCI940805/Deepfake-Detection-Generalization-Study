@@ -1,0 +1,52 @@
+{
+  "dataset": "Independent Mobile Formal Test",
+  "method": "Full Forensics Adapter trained on FF++ Deepfakes",
+  "checkpoint": "D:\\資料\\專題\\PY\\deepfake\\新版專題研究\\ForensicsAdapter_Results\\ffpp_original_deepfakes_full\\best_model.pth",
+  "preprocessing": "YOLO face crop + 256x256 + CLIP mean/std",
+  "label_mapping": {
+    "real": 0,
+    "fake": 1
+  },
+  "threshold_selection": {
+    "dataset": "separate mobile calibration set",
+    "metric": "Fake F1",
+    "selected_threshold": 0.46299999999999963
+  },
+  "formal_test_metrics": {
+    "original_0.5": {
+      "sample_count": 200,
+      "real_count": 100,
+      "fake_count": 100,
+      "predicted_fake_count": 12,
+      "accuracy": 0.56,
+      "precision": 1.0,
+      "recall": 0.12,
+      "specificity": 1.0,
+      "f1": 0.21428571428571427,
+      "auc": 0.82395,
+      "threshold": 0.5,
+      "tn": 100,
+      "fp": 0,
+      "fn": 88,
+      "tp": 12
+    },
+    "calibrated": {
+      "sample_count": 200,
+      "real_count": 100,
+      "fake_count": 100,
+      "predicted_fake_count": 85,
+      "accuracy": 0.745,
+      "precision": 0.788235294117647,
+      "recall": 0.67,
+      "specificity": 0.82,
+      "f1": 0.7243243243243244,
+      "auc": 0.82395,
+      "threshold": 0.46299999999999963,
+      "tn": 82,
+      "fp": 18,
+      "fn": 33,
+      "tp": 67
+    }
+  },
+  "note": "Formal test results were not used to select or adjust the calibrated threshold."
+}

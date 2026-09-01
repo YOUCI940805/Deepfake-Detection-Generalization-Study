@@ -1,0 +1,3 @@
+﻿threshold_setting,sample_count,real_count,fake_count,predicted_fake_count,accuracy,precision,recall,specificity,f1,auc,threshold,tn,fp,fn,tp
+original_0.5,200,100,100,12,0.56,1.0,0.12,1.0,0.21428571428571427,0.82395,0.5,100,0,88,12
+calibrated,200,100,100,85,0.745,0.788235294117647,0.67,0.82,0.7243243243243244,0.82395,0.46299999999999963,82,18,33,67
